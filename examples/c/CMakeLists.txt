@@ -35,6 +35,8 @@
 
 # select data set for QP and QCQP examples
 set(QP_DATA_SET data/getting_started_data.c)
+set(QP_DATA_SET_DOUBLE_INTEGRATOR_D data/double_integrator_d.c)
+set(QP_DATA_SET_DOUBLE_INTEGRATOR_S data/double_integrator_s.c)
 #set(QP_DATA_SET ../matlab_octave/ocp_qp_data.c)
 #set(QP_DATA_SET ../python/ocp_qp_data.c)
 
@@ -43,6 +45,8 @@ set(QCQP_DATA_SET data/pmsm_ocp_qcqp_data.c)
 
 add_executable(example_d_ocp_qp_unconstr example_d_ocp_qp_unconstr.c ${QP_DATA_SET})
 add_executable(example_d_ocp_qp example_d_ocp_qp.c ${QP_DATA_SET})
+add_executable(example_d_ocp_qp_double_integrator example_d_ocp_qp_double_integrator.c ${QP_DATA_SET_DOUBLE_INTEGRATOR_D})
+add_executable(example_s_ocp_qp_double_integrator example_s_ocp_qp_double_integrator.c ${QP_DATA_SET_DOUBLE_INTEGRATOR_S})
 add_executable(example_d_ocp_qp_x0emb example_d_ocp_qp_x0emb.c ${QP_DATA_SET})
 add_executable(example_d_ocp_qp_x0emb_cond example_d_ocp_qp_x0emb_cond.c ${QP_DATA_SET})
 add_executable(example_d_ocp_qp_part_cond example_d_ocp_qp_part_cond.c ${QP_DATA_SET})
@@ -55,6 +59,8 @@ add_executable(example_d_ocp_qcqp_x0emb_part_cond example_d_ocp_qp_x0emb_part_co
 
 target_include_directories(example_d_ocp_qp_unconstr PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
 target_include_directories(example_d_ocp_qp PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
+target_include_directories(example_d_ocp_qp_double_integrator PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
+target_include_directories(example_s_ocp_qp_double_integrator PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
 target_include_directories(example_d_ocp_qp_x0emb PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
 target_include_directories(example_d_ocp_qp_x0emb_cond PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
 target_include_directories(example_d_ocp_qp_part_cond PRIVATE "${HPIPM_INCLUDE_DIR}" "${BLASFEO_INCLUDE_DIR}")
@@ -68,6 +74,8 @@ target_include_directories(example_d_ocp_qcqp_x0emb_part_cond PRIVATE "${HPIPM_I
 if(CMAKE_C_COMPILER_ID MATCHES MSVC) # no explicit math library
 	target_link_libraries(example_d_ocp_qp_unconstr hpipm blasfeo)
 	target_link_libraries(example_d_ocp_qp hpipm blasfeo)
+    target_link_libraries(example_d_ocp_qp_double_integrator hpipm blasfeo)
+    target_link_libraries(example_s_ocp_qp_double_integrator hpipm blasfeo)
 	target_link_libraries(example_d_ocp_qp_x0emb hpipm blasfeo)
 	target_link_libraries(example_d_ocp_qp_x0emb_cond hpipm blasfeo)
 	target_link_libraries(example_d_ocp_qp_part_cond hpipm blasfeo)
@@ -80,6 +88,8 @@ if(CMAKE_C_COMPILER_ID MATCHES MSVC) # no explicit math library
 else() # add explicit math library
 	target_link_libraries(example_d_ocp_qp_unconstr hpipm blasfeo m)
 	target_link_libraries(example_d_ocp_qp hpipm blasfeo m)
+	target_link_libraries(example_d_ocp_qp_double_integrator hpipm blasfeo m)
+	target_link_libraries(example_s_ocp_qp_double_integrator hpipm blasfeo m)
 	target_link_libraries(example_d_ocp_qp_x0emb hpipm blasfeo m)
 	target_link_libraries(example_d_ocp_qp_x0emb_cond hpipm blasfeo m)
 	target_link_libraries(example_d_ocp_qp_part_cond hpipm blasfeo m)
